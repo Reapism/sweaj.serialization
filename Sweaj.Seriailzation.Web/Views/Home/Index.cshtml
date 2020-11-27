@@ -1,0 +1,40 @@
+﻿@model IEnumerable<Sweaj.Serialization.Api.Models.VideoMetadata>
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Demo of Serialization</h1>
+    <p class="text-justify text-info">
+This demo represents sending video metadata over from a JAVA application, to a webservice (this web application),
+to then a C# .NETCORE API to be interpreted, processed, and send back through the wire.
+
+All of this will use the concept of serialization/deserialization or the greater concept of marshaling/unmarshaling data.
+    </p>
+</div>
+<div>
+    <hr />
+    <h2>All the videos</h2>
+
+    @foreach (var video in Model)
+    {
+        if (video.Visibility == "Private")
+        {
+            <span class="oi oi-lock-locked" title="The video is private" aria-hidden="true"></span>
+            <a class="text-muted" href="@Url.ActionLink("Video", "Home", new { id = video.Id })"><span>@video.Title</span></a>
+        }
+        else
+        {
+            <a class="text-primary" href="@Url.ActionLink("Video", "Home", new { id = video.Id })"><span>@video.Title</span></a>
+        }
+        <br />
+    }
+
+    <a class="btn btn-warning" href="@Url.ActionLink("RandomVideo", "Home")"><span>Go to a Random Video</span></a>
+    <a class="btn btn-danger" href="@Url.ActionLink("ClearVideos", "Home")"><span>Clear Videos</span></a>
+    <hr />
+    <a class="btn btn-danger" href="@Url.ActionLink("UploadVideo", "Home")"><span>Upload Video</span></a>
+
+
+    <br />
+</div>

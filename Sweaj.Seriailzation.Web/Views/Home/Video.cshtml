@@ -1,0 +1,89 @@
+﻿@model Sweaj.Serialization.Api.Models.VideoMetadata
+@using Humanizer
+
+@{
+    var videoWidth = 1280;
+    var videoHeight = 720;
+    var videoBorderWidth = videoWidth + 5;
+    var videoBorderHeight = videoHeight + 5;
+
+}
+
+@if (Model.Visibility == "Public")
+{
+    <div>
+        <a class="btn btn-outline-success" style="margin-bottom:20px; margin-left:100px; float:right;" href="@Url.ActionLink("DownloadVideo", "Home", new { videoId = Model.Id })">Download</a>
+    </div>
+
+    <!--Video Player-->
+    <div width="@videoBorderWidth" height="@videoBorderHeight">
+        <img class="border-info" src="https://picsum.photos/seed/@Model.ImageSeed/@videoWidth/@videoHeight" />
+    </div>
+
+    <div class="form-group">
+        @if (Model.IsMonetized)
+        {
+            <div>
+                <span class="oi oi-dollar alert-success" title="This video is monetized!" aria-hidden="true"></span>
+                <label class="alert-success "></label>
+                <h3>@Model.Title</h3>
+            </div>
+        }
+        <div title="@Model.UploadDate.ToShortDateString()">
+            @Model.ViewCount.ToString("n0") views &middot; <span class="oi oi-timer" aria-hidden="true"></span> @Model.UploadDate.Humanize()
+            <br />
+        </div>
+    </div>
+    <div>
+        @if (Model.IsAgeRestricted)
+        {
+            <p class="oi oi-lock-locked text-danger" title="This video is age restricted." aria-hidden="true"></p>
+        }
+
+        @if (Model.IsForKids)
+        {
+            <p class="oi oi-lightbulb" title="This video is intended for children." aria-hidden="true"></p>
+        }
+    </div>
+
+    <div>
+        <textarea class="form-control" rows="5" readonly="readonly">@Model.ShortDescription @Environment.NewLine
+Tags: @Model.Tags</textarea>
+        <br />
+    </div>
+
+    <div>
+        <p title="@Model.RecordingDate.ToShortDateString()"><b>Recording Date:</b> @Model.RecordingDate.Humanize()</p>
+    </div>
+
+    @if (!Model.IsCommentsAllowed)
+    {
+        <span class="iconify text-warning" data-icon="dashicons:welcome-comments" data-inline="false" title="This video has comments disabled."></span>
+    }
+}
+else
+{
+
+    <div>
+        <span class="oi oi-lock-locked" title="The video is private" aria-hidden="true"></span>
+        This video is private
+        <a class="btn btn-outline-info" href="@Url.ActionLink("Index", "Home")">Go home</a>
+    </div>
+
+    <!--Video Player-->
+    <div>
+        <svg width="@videoWidth" height="@videoHeight">
+            <rect width="@videoWidth" height="@videoHeight" style="fill:rgb(61, 61, 61);stroke-width:5;stroke:rgb(0, 0, 0)" />
+        </svg>
+    </div>
+
+    <h3>@Model.Title</h3>
+
+    <div class="form-group">
+        <div title="@Model.UploadDate.ToShortDateString()">
+            @Model.ViewCount.ToString("n0") views &middot; <span class="oi oi-timer" aria-hidden="true"></span> @Model.UploadDate.Humanize()
+            <br />
+        </div>
+    </div>
+}
+
