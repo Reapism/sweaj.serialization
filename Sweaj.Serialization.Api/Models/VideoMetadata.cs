@@ -40,7 +40,7 @@ namespace Sweaj.Serialization.Api.Models
         public byte[] Thumbnail { get; set; }
         public long ViewCount { get; set; }
 
-        [JsonPropertyName("recordingDate")]
+        [JsonPropertyName("recordedDate")]
         public DateTime RecordingDate { get; set; }
         [JsonPropertyName("uploadDate")]
         public DateTime UploadDate { get; set; }

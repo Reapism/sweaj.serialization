@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -12,6 +15,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Microsoft.Win32;
+using Sweaj.Serialization.Wpf.Models;
 
 namespace Sweaj.Serialization.Wpf
 {
@@ -20,9 +25,112 @@ namespace Sweaj.Serialization.Wpf
     /// </summary>
     public partial class MainWindow : Window
     {
+        private HttpClient httpClient;
+
         public MainWindow()
         {
             InitializeComponent();
+            httpClient = new HttpClient() { BaseAddress = new Uri("http://localhost:44352/") };
+        }
+
+        private void UploadVideoButton_Click(object sender, RoutedEventArgs e)
+        {
+            var json = ToJson();
+            Post("Home/UploadVideo", json);
+        }
+
+
+        private void SaveVideoButton_Click(object sender, RoutedEventArgs e)
+        {
+            var json = ToJson();
+            var saveFileDialog = new SaveFileDialog()
+            {
+                Title = "Save video information",
+                Filter = "*json"
+            };
+
+            var dialogResult = saveFileDialog.ShowDialog();
+
+            if (dialogResult.HasValue && !dialogResult.Value)
+            {
+                MessageBox.Show("Please enter a filename for saving.");
+            }
+
+            File.WriteAllText(saveFileDialog.FileName, json);
+        }
+
+        private void OpenVideoButton_Click(object sender, RoutedEventArgs e)
+        {
+            var openFileDialog = new OpenFileDialog()
+            {
+                Title = "Open video information",
+                Filter = "*.json"
+            };
+
+            var dialogResult = openFileDialog.ShowDialog();
+            if (dialogResult.HasValue && !dialogResult.Value)
+            {
+                MessageBox.Show("Please select a file.");
+            }
+
+            var json = File.ReadAllText(openFileDialog.FileName);
+            var model = JsonSerializer.Deserialize<UploadVideoMetadata>(json);
+
+            ApplyUiValuesFromModel(model);
+        }
+
+        public void Post(string endpoint, string json)
+        {
+            if (string.IsNullOrWhiteSpace(endpoint))
+            {
+                MessageBox.Show("Opps!", "Opps an error has occurred locating the endpoint.", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+            var httpContent = new StringContent(json, Encoding.UTF8, "application/json");
+
+            var t = Task.Run(() => httpClient.PostAsync(endpoint, httpContent));
+            t.Wait();
+
+            var response = t.Result;
+            MessageBox.Show(response.IsSuccessStatusCode.ToString());
+        }
+
+        private string ToJson()
+        {
+            var uploadVideo = new UploadVideoMetadata
+            {
+                AllowComments = AllowCommentsCheckBox.IsEnabled,
+                AllowEmbedding = AllowEmbeddingCheckBox.IsEnabled,
+                IsForMatureAudience = IsForAdultsCheckBox.IsEnabled,
+                Category = CategoryComboBox.SelectedValue.ToString(),
+                Description = DescriptionTextBox.Text,
+                IsForChildren = IsForChildrenCheckBox.IsEnabled,
+                IsMonetized = IsMonetizedCheckBox.IsEnabled,
+                RecordingDate = RecordingDateDatePicker.SelectedDate.GetValueOrDefault(),
+                Tags = TagsTextBox.Text,
+                Title = TitleTextBox.Text,
+                UploadDate = DateTime.Now,
+                Visibility = VisibilityComboBox.SelectedValue.ToString()
+            };
+
+            var json = JsonSerializer.Serialize(uploadVideo);
+
+            return json;
+        }
+
+        private void ApplyUiValuesFromModel(UploadVideoMetadata model)
+        {
+            AllowCommentsCheckBox.IsEnabled = model.AllowComments;
+            AllowEmbeddingCheckBox.IsEnabled = model.AllowEmbedding;
+            IsForAdultsCheckBox.IsEnabled = model.IsForMatureAudience;
+            CategoryComboBox.SelectedItem = model.Category;
+            DescriptionTextBox.Text = model.Description;
+            IsForChildrenCheckBox.IsEnabled = model.IsForChildren;
+            IsMonetizedCheckBox.IsEnabled = model.IsMonetized;
+            RecordingDateDatePicker.SelectedDate = model.RecordingDate;
+            TagsTextBox.Text = model.Tags;
+            TitleTextBox.Text = model.Title;
+            VisibilityComboBox.SelectedItem = model.Visibility;
         }
     }
 }
