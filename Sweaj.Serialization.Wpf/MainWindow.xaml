@@ -5,69 +5,91 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Sweaj.Serialization.Wpf"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Serialization Demo - WPF" Height="500" Width="800" MinHeight="500" MinWidth="800"
+        FontSize="18"
+        FontFamily="Segou UI">
     <Grid>
-        <Grid Background="LightGray">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="3*"/>
-                <ColumnDefinition />
-            </Grid.ColumnDefinitions>
-            <Grid Grid.Column="1">
-                <Grid.RowDefinitions>
-                    <RowDefinition />
-                    <RowDefinition Height="1.6*"/>
-                </Grid.RowDefinitions>
-                <TextBlock Margin="5" Text="Thumbnail"></TextBlock>
-                <Rectangle Margin="13,28,13,13" Fill="DarkGray"></Rectangle>
-                <Rectangle Margin="15,30,15,15" Fill="White"></Rectangle>
-                <Grid Margin="5" Grid.Row="1" Background="#4CFFFFFF">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="1.7*"/>
-                        <RowDefinition />
-                    </Grid.RowDefinitions>
-                    <StackPanel Grid.Row="1">
-                        <Button x:Name="OpenVideoButton" Margin="5" Content="Open video details" Click="OpenVideoButton_Click" ></Button>
-                        <Button x:Name="SaveVideoButton" Margin="5" Content="Save video details" Click="SaveVideoButton_Click"></Button>
-                        <Button x:Name="UploadVideoButton" Margin="5" Content="Upload video" Click="UploadVideoButton_Click" ></Button>
+        <TabControl>
+            <TabItem>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel>
+                        <Label Content="Videos"/>
+                    </StackPanel>
+                    <StackPanel Grid.Column="1">
+                        <ComboBox x:Name="VideosComboBox">
+                            
+                        </ComboBox>
                     </StackPanel>
                 </Grid>
-            </Grid>
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition Width="4*"/>
-                </Grid.ColumnDefinitions>
-                <StackPanel Grid.Column="0" >
-                    <Label Margin="5" Height="30" Content="Title"></Label>
-                    <Label Margin="5" Content="Description" Height="100"></Label>
-                    <Label Margin="5" Content="Category"></Label>
-                    <Label Margin="5" Content="Visibility"></Label>
-                    <Label Height="125" Content=""></Label>
-                    <Label Margin="5" Content="Recording Date"></Label>
-                    <Label Margin="5" Content="Tags"></Label>
-                </StackPanel>
-                <StackPanel Grid.Column="1" >
-                    <TextBox x:Name="TitleTextBox" Margin="5" Height="30" Background="#4CFFFFFF" BorderBrush="White"></TextBox>
-                    <TextBox x:Name="DescriptionTextBox" Margin="5" Background="#4CFFFFFF" Height="100"></TextBox>
-                    <ComboBox x:Name="CategoryComboBox" Margin="5" Height="30" Background="#4CFFFFFF">
-                        <ComboBoxItem Content="Technology"/>
-                        <ComboBoxItem Content="Science and Technology"/>
-                        <ComboBoxItem Content="News"/>
-                        <ComboBoxItem Content="Gaming"/>
-                    </ComboBox>
-                    <ComboBox x:Name="VisibilityComboBox" Margin="5" Height="30" Background="#4CFFFFFF">
-                        <ComboBoxItem Content="Private"/>
-                        <ComboBoxItem Content="Public"/>
-                    </ComboBox>
-                    <CheckBox x:Name="IsForChildrenCheckBox" Margin="5" Content="Is this video intended for children?" ToolTip="This changes how advertisements appear on your video when children watch it."></CheckBox>
-                    <CheckBox x:Name="IsForAdultsCheckBox" Margin="5" Content="Is this video intended for mature audience?" ToolTip="This change will affect monetization rates."></CheckBox>
-                    <CheckBox x:Name="AllowEmbeddingCheckBox" Margin="5" Content="Allow embedding?" ToolTip="Allow this video to be embedded in other sites."></CheckBox>
-                    <CheckBox x:Name="AllowCommentsCheckBox" Margin="5" Content="Allow comments?" ToolTip="Allow users to comment on this video"></CheckBox>
-                    <CheckBox x:Name="IsMonetizedCheckBox" Margin="5" Content="Monetize this video?" ToolTip="Toggle monetization on this video."></CheckBox>
-                    <DatePicker x:Name="RecordingDateDatePicker" Background="#4CFFFFFF"></DatePicker>
-                    <TextBox x:Name="TagsTextBox" Margin="5" Height="30" Background="#4CFFFFFF" BorderBrush="White" ToolTip="comma separated tags list"></TextBox>
-                </StackPanel>
-            </Grid>
-        </Grid>
+            </TabItem>
+            <TabItem Content="Upload Video">
+                <Grid Background="LightGray">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="3*"/>
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition Height="1.6*"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Margin="5" Text="Thumbnail"></TextBlock>
+                        <Rectangle Margin="13,28,13,13" Fill="DarkGray"></Rectangle>
+                        <Rectangle Margin="15,30,15,15" Fill="White"></Rectangle>
+                        <Grid Margin="5" Grid.Row="1" Background="#4CFFFFFF">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="1.7*"/>
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <StackPanel Grid.Row="1">
+                                <Button x:Name="OpenVideoButton" Margin="5" Content="Open video details" Click="OpenVideoButton_Click" ></Button>
+                                <Button x:Name="SaveVideoButton" Margin="5" Content="Save video details" Click="SaveVideoButton_Click"></Button>
+                            </StackPanel>
+                        </Grid>
+                    </Grid>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="3*"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Column="0" >
+                            <Label Margin="5" Height="30" Content="Title"></Label>
+                            <Label Margin="5" Content="Description" Height="100"></Label>
+                            <Label Margin="5" Content="Category"></Label>
+                            <Label Margin="5" Content="Visibility"></Label>
+                            <Label Height="140" Content=""></Label>
+                            <Label Margin="5" Content="Recording Date"></Label>
+                            <Label Margin="5" Content="Tags"></Label>
+                        </StackPanel>
+                        <StackPanel Grid.Column="1" >
+                            <TextBox x:Name="TitleTextBox" Margin="5" Height="30" Background="#4CFFFFFF" BorderBrush="White"></TextBox>
+                            <TextBox x:Name="DescriptionTextBox" Margin="5" Background="#4CFFFFFF" BorderBrush="White" Height="100"></TextBox>
+                            <ComboBox x:Name="CategoryComboBox" Margin="5" Height="30" Background="#4CFFFFFF">
+                                <ComboBoxItem Content="Technology"/>
+                                <ComboBoxItem Content="Science and Technology"/>
+                                <ComboBoxItem Content="News"/>
+                                <ComboBoxItem Content="Gaming"/>
+                            </ComboBox>
+                            <ComboBox x:Name="VisibilityComboBox" Margin="5" Height="30" Background="#4CFFFFFF">
+                                <ComboBoxItem Content="Public"/>
+                                <ComboBoxItem Content="Private"/>
+                            </ComboBox>
+                            <CheckBox x:Name="IsForChildrenCheckBox" Margin="5" Content="Is this video intended for children?" ToolTip="This changes how advertisements appear on your video when children watch it."></CheckBox>
+                            <CheckBox x:Name="IsForAdultsCheckBox" Margin="5" Content="Is this video intended for mature audience?" ToolTip="This change will affect monetization rates."></CheckBox>
+                            <CheckBox x:Name="AllowEmbeddingCheckBox" Margin="5" Content="Allow embedding?" ToolTip="Allow this video to be embedded in other sites."></CheckBox>
+                            <CheckBox x:Name="AllowCommentsCheckBox" Margin="5" Content="Allow comments?" ToolTip="Allow users to comment on this video"></CheckBox>
+                            <CheckBox x:Name="IsMonetizedCheckBox" Margin="5" Content="Monetize this video?" ToolTip="Toggle monetization on this video."></CheckBox>
+                            <DatePicker x:Name="RecordingDateDatePicker" Background="#4CFFFFFF"></DatePicker>
+                            <TextBox x:Name="TagsTextBox" Margin="5" Height="30" Background="#4CFFFFFF" BorderBrush="White" ToolTip="comma separated tags list"></TextBox>
+                        </StackPanel>
+                    </Grid>
+                </Grid>
+            </TabItem>
+        </TabControl>
+        
     </Grid>
 </Window>

@@ -12,7 +12,9 @@
 @if (Model.Visibility == "Public")
 {
     <div>
-        <a class="btn btn-outline-success" style="margin-bottom:20px; margin-left:100px; float:right;" href="@Url.ActionLink("DownloadVideo", "Home", new { videoId = Model.Id })">Download</a>
+        <a class="btn btn-outline-primary" style="margin-bottom:20px; float:left;" href="@Url.ActionLink("Index", "Home")">Go Home</a>
+        <a class="btn btn-outline-success" style="margin-bottom:20px; margin-left:30px; float:right;" href="@Url.ActionLink("DownloadVideo", "Home", new { videoId = Model.Id })">Download</a>
+        <a class="btn btn-outline-danger" style="margin-bottom:20px; margin-left:30px; float:right;" href="@Url.ActionLink("DeleteVideo", "Home", new { videoId = Model.Id })">Delete</a>
     </div>
 
     <!--Video Player-->
@@ -63,7 +65,9 @@ Tags: @Model.Tags</textarea>
 }
 else
 {
-
+    <div>
+        <a class="btn btn-outline-danger" style="margin-bottom:20px; margin-left:100px; float:right;" href="@Url.ActionLink("DeleteVideo", "Home", new { videoId = Model.Id })">Delete</a>
+    </div>
     <div>
         <span class="oi oi-lock-locked" title="The video is private" aria-hidden="true"></span>
         This video is private

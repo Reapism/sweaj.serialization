@@ -73,17 +73,30 @@ namespace Sweaj.Serialization.Web.Controllers
         }
 
         [HttpGet]
-        public IActionResult UploadVideo()
+        public IActionResult DownloadVideo(Guid? videoId)
         {
-            throw new NotImplementedException();
+            if (!videoId.HasValue)
+            {
+                return NoContent();
+            }
+
+            var video = context.VideoMetadatas.First(e => e.Id == videoId.Value);
+            var json = JsonSerializer.Serialize(video, new JsonSerializerOptions() { WriteIndented = true });
+            var jsonBytes = Encoding.UTF8.GetBytes(json);
+            return File(jsonBytes, "application/json");
         }
 
         [HttpGet]
-        public IActionResult DownloadVideo(Guid? videoId)
+        public IActionResult DeleteVideo(Guid? videoId)
         {
-            var video = context.VideoMetadatas.First(e => e.Id == videoId);
-            var json = JsonSerializer.Serialize(video, new JsonSerializerOptions() { WriteIndented = true });
-            return File(Encoding.UTF8.GetBytes(json), "application/json");
+            if (!videoId.HasValue)
+            {
+                return NoContent();
+            }
+
+            context.VideoMetadatas.Remove(context.VideoMetadatas.First(e => e.Id == videoId.Value));
+            context.SaveChanges();
+            return RedirectToAction(nameof(Index));
         }
 
         [HttpGet]

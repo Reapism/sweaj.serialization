@@ -42,7 +42,7 @@ namespace Sweaj.Serialization.Api.Services
                     LicenseType = "Standard",
                     PlaylistId = Guid.Empty,
                     PublishDate = DateTime.Now.AddDays(random.Next(10)),
-                    ShortDescription = descriptions[random.Next(descriptions.Length)],
+                    ShortDescription = $"{descriptions[random.Next(1, descriptions.Length)]} {descriptions[0]}",
                     Tags = tags[random.Next(tags.Length)],
                     Thumbnail = null,
                     Title = titles[random.Next(titles.Length)],

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -25,22 +26,12 @@ namespace Sweaj.Serialization.Wpf
     /// </summary>
     public partial class MainWindow : Window
     {
-        private HttpClient httpClient;
-
         public MainWindow()
         {
-            InitializeComponent();
-            httpClient = new HttpClient() { BaseAddress = new Uri("http://localhost:44352/") };
+            InitializeComponent();       
         }
 
-        private void UploadVideoButton_Click(object sender, RoutedEventArgs e)
-        {
-            var json = ToJson();
-            Post("Home/UploadVideo", json);
-        }
-
-
-        private void SaveVideoButton_Click(object sender, RoutedEventArgs e)
+        private async void SaveVideoButton_Click(object sender, RoutedEventArgs e)
         {
             var json = ToJson();
             var saveFileDialog = new SaveFileDialog()
@@ -59,7 +50,7 @@ namespace Sweaj.Serialization.Wpf
             File.WriteAllText(saveFileDialog.FileName, json);
         }
 
-        private void OpenVideoButton_Click(object sender, RoutedEventArgs e)
+        private async void OpenVideoButton_Click(object sender, RoutedEventArgs e)
         {
             var openFileDialog = new OpenFileDialog()
             {
@@ -77,22 +68,6 @@ namespace Sweaj.Serialization.Wpf
             var model = JsonSerializer.Deserialize<UploadVideoMetadata>(json);
 
             ApplyUiValuesFromModel(model);
-        }
-
-        public void Post(string endpoint, string json)
-        {
-            if (string.IsNullOrWhiteSpace(endpoint))
-            {
-                MessageBox.Show("Opps!", "Opps an error has occurred locating the endpoint.", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-
-            var httpContent = new StringContent(json, Encoding.UTF8, "application/json");
-
-            var t = Task.Run(() => httpClient.PostAsync(endpoint, httpContent));
-            t.Wait();
-
-            var response = t.Result;
-            MessageBox.Show(response.IsSuccessStatusCode.ToString());
         }
 
         private string ToJson()

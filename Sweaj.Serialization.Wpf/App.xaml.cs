@@ -13,5 +13,6 @@ namespace Sweaj.Serialization.Wpf
     /// </summary>
     public partial class App : Application
     {
+
     }
 }

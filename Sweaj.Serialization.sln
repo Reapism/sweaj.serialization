@@ -7,9 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sweaj.Serialization.Web", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sweaj.Serialization.Api", "Sweaj.Serialization.Api\Sweaj.Serialization.Api.csproj", "{6EFC5DFF-A42F-4B8B-B1AF-28A4A84E9BD8}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sweaj.Serialization.Api.Tests", "Sweaj.Serialization.Api.Tests\Sweaj.Serialization.Api.Tests.csproj", "{D42775C7-A865-4BDC-ADFC-C9751C842FC3}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sweaj.Serialization.Wpf", "Sweaj.Serialization.Wpf\Sweaj.Serialization.Wpf.csproj", "{E2370306-6206-49F6-866F-F751EF03DD9D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sweaj.Serialization.Wpf", "Sweaj.Serialization.Wpf\Sweaj.Serialization.Wpf.csproj", "{E2370306-6206-49F6-866F-F751EF03DD9D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Client", "Client", "{BBFBCE74-0651-4C5E-9B63-938E0817EB94}"
 EndProject
@@ -31,10 +29,6 @@ Global
 		{6EFC5DFF-A42F-4B8B-B1AF-28A4A84E9BD8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6EFC5DFF-A42F-4B8B-B1AF-28A4A84E9BD8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6EFC5DFF-A42F-4B8B-B1AF-28A4A84E9BD8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D42775C7-A865-4BDC-ADFC-C9751C842FC3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D42775C7-A865-4BDC-ADFC-C9751C842FC3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D42775C7-A865-4BDC-ADFC-C9751C842FC3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D42775C7-A865-4BDC-ADFC-C9751C842FC3}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E2370306-6206-49F6-866F-F751EF03DD9D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{E2370306-6206-49F6-866F-F751EF03DD9D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E2370306-6206-49F6-866F-F751EF03DD9D}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -46,7 +40,6 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{471429D2-2C76-4299-992A-6E1A43A7180E} = {6BE0AFEF-1F10-44B4-9FE4-6292105A0F80}
 		{6EFC5DFF-A42F-4B8B-B1AF-28A4A84E9BD8} = {C7CABE96-D73F-4551-884C-6F2B7033485C}
-		{D42775C7-A865-4BDC-ADFC-C9751C842FC3} = {C7CABE96-D73F-4551-884C-6F2B7033485C}
 		{E2370306-6206-49F6-866F-F751EF03DD9D} = {BBFBCE74-0651-4C5E-9B63-938E0817EB94}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution

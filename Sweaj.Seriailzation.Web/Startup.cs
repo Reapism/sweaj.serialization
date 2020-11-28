@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -26,6 +28,24 @@ namespace Sweaj.Serialization.Web
         {
             services.AddControllersWithViews();
             services.AddScoped<DemoContext>();
+
+            services.AddHttpClient<HttpClient>("webapi", hc =>
+            {
+                hc.BaseAddress = new Uri("http://localhost:44307");
+                hc.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                hc.DefaultRequestHeaders.Add("Connection", "Keep-Alive");
+                hc.DefaultRequestHeaders.Add("Keep-Alive", "3600");
+                hc.DefaultRequestHeaders.UserAgent.ParseAdd("WebAPI client");
+            });
+
+            services.AddHttpClient<HttpClient>("webapp", hc =>
+            {
+                hc.BaseAddress = new Uri("http://localhost:44352");
+                hc.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                hc.DefaultRequestHeaders.Add("Connection", "Keep-Alive");
+                hc.DefaultRequestHeaders.Add("Keep-Alive", "3600");
+                hc.DefaultRequestHeaders.UserAgent.ParseAdd("WebApp client");
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
