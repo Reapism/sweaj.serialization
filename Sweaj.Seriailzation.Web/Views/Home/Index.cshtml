@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Sweaj.Serialization.Api.Models.VideoMetadata>
+﻿@model IEnumerable<Sweaj.Serialization.Data.Models.VideoMetadata>
 @{
     ViewData["Title"] = "Home Page";
 }
@@ -6,10 +6,10 @@
 <div class="text-center">
     <h1 class="display-4">Demo of Serialization</h1>
     <p class="text-justify text-info">
-        This demo represents sending video metadata over from a JAVA application, to a webservice (this web application),
-        to then a C# .NETCORE API to be interpreted, processed, and send back through the wire.
+        This demo represents sending video metadata over from a WPF application, to a webservice (this web application),
+        to then a C# .NETCORE API to be processed, and persisted into a database.
 
-        All of this will use the concept of serialization/deserialization or the greater concept of marshaling/unmarshaling data.
+        All of this will rely on the use of serialization/deserialization to get the information of the videos.
     </p>
 </div>
 <div>
@@ -35,8 +35,8 @@
         </ul>
     }
 
-    <a class="btn btn-warning" href="@Url.ActionLink("RandomVideo", "Home")"><span>Go to a Random Video</span></a>
-    <a class="btn btn-danger" href="@Url.ActionLink("ClearVideos", "Home")"><span>Clear Videos</span></a>
+    <a class="btn btn-warning" href="@Url.ActionLink("RandomVideo", "Home")"><span>Generate Random Video</span></a>
+    <a class="btn btn-danger" href="@Url.ActionLink("DeleteAllVideos", "Home")"><span>Delete all Videos</span></a>
     <hr />
     <br />
 </div>
