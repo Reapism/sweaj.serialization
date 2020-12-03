@@ -1,9 +1,9 @@
 ﻿using System;
 using System.IO;
 using System.Reflection;
-using Sweaj.Serialization.Api.Models;
+using Sweaj.Serialization.Data.Models;
 
-namespace Sweaj.Serialization.Api.Services
+namespace Sweaj.Serialization.Data.Services
 {
     public class RandomVideoGenerator
     {

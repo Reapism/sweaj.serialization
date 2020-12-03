@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UserSecretsId>c450c3f4-49ec-46b4-a650-69b7e9ac274b</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -16,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Sweaj.Serialization.Api\Sweaj.Serialization.Api.csproj" />
+    <ProjectReference Include="..\Sweaj.Serialization.Api\Sweaj.Serialization.Data.csproj" />
   </ItemGroup>
 
 </Project>

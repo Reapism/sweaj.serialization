@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Sweaj.Serialization.Web.Models;
-using Sweaj.Serialization.Api;
-using Sweaj.Serialization.Api.Services;
-using Sweaj.Serialization.Api.Models;
+using Sweaj.Serialization.Data;
+using Sweaj.Serialization.Data.Services;
+using Sweaj.Serialization.Data.Models;
 using System.Net.Http;
 using System.Text.Json;
 using System.Text;
@@ -18,9 +18,9 @@ namespace Sweaj.Serialization.Web.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly DemoContext context;
+        private readonly VideoContext context;
 
-        public HomeController(ILogger<HomeController> logger, DemoContext demoContext)
+        public HomeController(ILogger<HomeController> logger, VideoContext demoContext)
         {
             _logger = logger;
             this.context = demoContext;
@@ -64,7 +64,7 @@ namespace Sweaj.Serialization.Web.Controllers
         }
 
         [HttpGet]
-        public IActionResult ClearVideos()
+        public IActionResult DeleteAllVideos()
         {
             context.VideoMetadatas.RemoveRange(context.VideoMetadatas);
             context.SaveChanges();
