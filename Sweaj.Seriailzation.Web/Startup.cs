@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Sweaj.Serialization.Api;
+using Sweaj.Serialization.Data;
 
 namespace Sweaj.Serialization.Web
 {
@@ -27,7 +27,7 @@ namespace Sweaj.Serialization.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            services.AddScoped<DemoContext>();
+            services.AddScoped<VideoContext>();
 
             services.AddHttpClient<HttpClient>("webapi", hc =>
             {
