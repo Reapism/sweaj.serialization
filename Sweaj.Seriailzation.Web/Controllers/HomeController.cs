@@ -1,17 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Net.Http;
+using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using Sweaj.Serialization.Web.Models;
 using Sweaj.Serialization.Data;
 using Sweaj.Serialization.Data.Services;
-using Sweaj.Serialization.Data.Models;
-using System.Net.Http;
-using System.Text.Json;
-using System.Text;
+using Sweaj.Serialization.Web.Models;
 
 namespace Sweaj.Serialization.Web.Controllers
 {
@@ -19,11 +18,13 @@ namespace Sweaj.Serialization.Web.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly VideoContext context;
+        private readonly HttpClient httpClient;
 
-        public HomeController(ILogger<HomeController> logger, VideoContext demoContext)
+        public HomeController(ILogger<HomeController> logger, VideoContext demoContext, HttpClient httpClient)
         {
             _logger = logger;
             this.context = demoContext;
+            this.httpClient = httpClient;
         }
 
         [HttpGet]
@@ -37,14 +38,14 @@ namespace Sweaj.Serialization.Web.Controllers
 
             return View(videos);
         }
-        
+
         [HttpGet]
-        public IActionResult Video(Guid? id)
+        public async Task<IActionResult> Video(Guid? id)
         {
             if (!id.HasValue)
                 return View();
 
-            var videoModel = context.VideoMetadatas.FirstOrDefault(e => e.Id == id);
+            var videoModel = await context.VideoMetadatas.FirstOrDefaultAsync(e => e.Id == id);
 
             if (videoModel is null)
                 return Error();
@@ -53,14 +54,16 @@ namespace Sweaj.Serialization.Web.Controllers
         }
 
         [HttpGet]
-        public IActionResult RandomVideo(int? numberOfVideos)
+        public async Task<IActionResult> RandomVideo(int? numberOfVideos)
         {
             var videos = RandomVideoGenerator.CreateRandomVideo(numberOfVideos.HasValue ? numberOfVideos.Value : 1);
-            
-            context.VideoMetadatas.AddRange(videos);
-            context.SaveChanges();
-            ViewData.Add("Title", videos[0].Title);
-            return RedirectToAction(nameof(Video), new { id = videos[0].Id });
+
+            var response = await httpClient.PostAsJsonAsync("api/uploadvideo", videos);
+
+            if (response.IsSuccessStatusCode)
+                return RedirectToAction(nameof(Video), new { id = videos[0].Id });
+            else
+                return BadRequest();
         }
 
         [HttpGet]

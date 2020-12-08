@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Sweaj.Serialization.Data;
+using Sweaj.Serialization.Web.Controllers;
 
 namespace Sweaj.Serialization.Web
 {
@@ -29,23 +30,13 @@ namespace Sweaj.Serialization.Web
             services.AddControllersWithViews();
             services.AddScoped<VideoContext>();
 
-            services.AddHttpClient<HttpClient>("webapi", hc =>
-            {
-                hc.BaseAddress = new Uri("http://localhost:44307");
-                hc.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                hc.DefaultRequestHeaders.Add("Connection", "Keep-Alive");
-                hc.DefaultRequestHeaders.Add("Keep-Alive", "3600");
-                hc.DefaultRequestHeaders.UserAgent.ParseAdd("WebAPI client");
-            });
+            var httpClient = new HttpClient();
+            var uriBuilder = new UriBuilder("https", "localhost", 44331);
+            httpClient.BaseAddress = uriBuilder.Uri;
+            httpClient.DefaultRequestHeaders.Accept.Clear();
+            httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-            services.AddHttpClient<HttpClient>("webapp", hc =>
-            {
-                hc.BaseAddress = new Uri("http://localhost:44352");
-                hc.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                hc.DefaultRequestHeaders.Add("Connection", "Keep-Alive");
-                hc.DefaultRequestHeaders.Add("Keep-Alive", "3600");
-                hc.DefaultRequestHeaders.UserAgent.ParseAdd("WebApp client");
-            });
+            services.AddSingleton(httpClient);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
