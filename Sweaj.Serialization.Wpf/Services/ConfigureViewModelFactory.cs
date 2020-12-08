@@ -20,7 +20,7 @@ namespace Sweaj.Serialization.Wpf.Services
 
             var client = new HttpClient();
             var uriBuilder = new UriBuilder(scheme, host, port, path);
-            client.BaseAddress = new UriBuilder(scheme, host, port).Uri;
+            client.BaseAddress = uriBuilder.Uri;
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 

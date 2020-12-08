@@ -104,7 +104,7 @@
                         <TextBox Name="SchemeTextBox" Margin="5" Text="https"/>
                         <TextBox Name="HostTextBox" Margin="5" Text="localhost"/>
                         <TextBox Name="PortTextBox" Margin="5" Text="44331"/>
-                        <TextBox Name="EndpointTextBox" Margin="5" Text="api/uploadvideo"/>
+                        <TextBox Name="EndpointTextBox" Margin="5" Text="api/ping"/>
                         <TextBox x:Name="StatusTextBox" Margin="5" IsReadOnly="True" Text=""/>
                         <Button x:Name="CheckStatusButton" Margin="5" Content="Check Status" Click="CheckStatusButton_Click"/>
                     </StackPanel>
