@@ -58,7 +58,7 @@ namespace Sweaj.Serialization.Web.Controllers
         {
             var videos = RandomVideoGenerator.CreateRandomVideo(numberOfVideos.HasValue ? numberOfVideos.Value : 1);
 
-            var response = await httpClient.PostAsJsonAsync("api/uploadvideo", videos);
+            var response = await httpClient.PostAsJsonAsync("upload", videos);
 
             if (response.IsSuccessStatusCode)
                 return RedirectToAction(nameof(Video), new { id = videos[0].Id });
