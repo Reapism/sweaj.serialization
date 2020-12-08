@@ -19,9 +19,6 @@ namespace Sweaj.Seriailzation.WebApi.Services
                 if (e.ViewCount != 0)
                     e.ViewCount = 0;
 
-                if (e.ShortDescription.Length > 100)
-                    e.ShortDescription.Trim().Substring(0, 100);
-
                 e.Language = "English";
                 e.PublishDate = DateTime.Now;
                 e.UploadDate = DateTime.Now;

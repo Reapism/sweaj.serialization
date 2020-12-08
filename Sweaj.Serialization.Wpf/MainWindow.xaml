@@ -56,7 +56,7 @@
                             </StackPanel>
                             <StackPanel Grid.Column="1" >
                                 <TextBox x:Name="TitleTextBox" Margin="5" Height="30" Background="#4CFFFFFF" BorderBrush="White"/>
-                                <TextBox x:Name="DescriptionTextBox" Margin="5" Background="#4CFFFFFF" BorderBrush="White" Height="100"/>
+                                <TextBox x:Name="DescriptionTextBox" Margin="5" Background="#4CFFFFFF" BorderBrush="White" Height="100" VerticalScrollBarVisibility="Auto" AcceptsReturn="True" TextWrapping="Wrap"/>
                                 <ComboBox x:Name="CategoryComboBox" Margin="5" Height="30" Background="#4CFFFFFF">
                                     <ComboBoxItem Content="Technology"/>
                                     <ComboBoxItem Content="Science and Technology"/>
