@@ -47,6 +47,21 @@ namespace Sweaj.Seriailzation.WebApi.Controllers
             return Ok();
         }
 
+        // Create
+        [HttpPost]
+        public async Task<ActionResult> Post(VideoMetadata[] models)
+        {
+            if (models is null)
+            {
+                return NoContent();
+            }
+
+            await context.VideoMetadatas.AddRangeAsync(models);
+            await context.SaveChangesAsync();
+
+            return Ok();
+        }
+
         // Update
         [HttpPut]
         public async Task<ActionResult> Put(Guid id, VideoMetadata metadata)
