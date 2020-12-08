@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Sweaj.Seriailzation.WebApi.Services;
 using Sweaj.Serialization.Data;
 
 namespace Sweaj.Seriailzation.WebApi
@@ -28,6 +29,7 @@ namespace Sweaj.Seriailzation.WebApi
         {
             services.AddControllers();
             services.AddScoped<VideoContext>();
+            services.AddScoped<VideoDefaulterService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

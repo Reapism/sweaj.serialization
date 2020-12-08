@@ -1,15 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net.Http;
 using System.Text.Json;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using Microsoft.Win32;
-using Sweaj.Serialization.Data;
-using Sweaj.Serialization.Data.Models;
 using Sweaj.Serialization.Wpf.Models;
 using Sweaj.Serialization.Wpf.Services;
 using Sweaj.Serialization.Wpf.ViewModels;
@@ -21,23 +17,11 @@ namespace Sweaj.Serialization.Wpf
     /// </summary>
     public partial class MainWindow : Window
     {
-        private readonly VideoContext context;
-        private IEnumerable<VideoMetadata> videos;
         private ConfigureViewModel configureViewModel;
 
         public MainWindow()
         {
             InitializeComponent();
-            DataContext = new VideosViewModel();
-            context = new VideoContext();
-            videos = GetVideos();
-        }
-
-        private IEnumerable<VideoMetadata> GetVideos()
-        {
-            var videos = context.VideoMetadatas.OrderBy(e => e.Title).ToArray().AsEnumerable();
-
-            return videos;
         }
 
         private async void Window_Loaded(object sender, RoutedEventArgs e)
@@ -95,7 +79,7 @@ namespace Sweaj.Serialization.Wpf
         private async void UploadVideoButton_Click(object sender, RoutedEventArgs e)
         {
             var model = ToModel();
-            var response = await configureViewModel.HttpClient.PostAsJsonAsync("api/uploadvideo", model);
+            var response = await configureViewModel.HttpClient.PostAsJsonAsync("upload", new[] { model });
 
             if (response.IsSuccessStatusCode)
             {

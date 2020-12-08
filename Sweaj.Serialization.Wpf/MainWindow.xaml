@@ -4,7 +4,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Sweaj.Serialization.Wpf"
-        xmlns:Models="clr-namespace:Sweaj.Serialization.Data.Models;assembly=Sweaj.Serialization.Data" xmlns:ViewModels="clr-namespace:Sweaj.Serialization.Wpf.ViewModels" x:Class="Sweaj.Serialization.Wpf.MainWindow"
+        xmlns:ViewModels="clr-namespace:Sweaj.Serialization.Wpf.ViewModels" 
+        x:Class="Sweaj.Serialization.Wpf.MainWindow"
         mc:Ignorable="d"
         Title="Serialization Demo - WPF" Height="550" Width="800" MinHeight="550" MinWidth="800"
         FontSize="18"
@@ -104,7 +105,7 @@
                         <TextBox Name="SchemeTextBox" Margin="5" Text="https"/>
                         <TextBox Name="HostTextBox" Margin="5" Text="localhost"/>
                         <TextBox Name="PortTextBox" Margin="5" Text="44331"/>
-                        <TextBox Name="EndpointTextBox" Margin="5" Text="api/ping"/>
+                        <TextBox Name="EndpointTextBox" Margin="5" Text="ping"/>
                         <TextBox x:Name="StatusTextBox" Margin="5" IsReadOnly="True" Text=""/>
                         <Button x:Name="CheckStatusButton" Margin="5" Content="Check Status" Click="CheckStatusButton_Click"/>
                     </StackPanel>
@@ -113,12 +114,6 @@
             </TabItem>
             <TabItem Header="Videos">
                 <Grid>
-                    <ListBox>
-                        <ListBox.DataContext>
-                            <ViewModels:VideosViewModel/>
-                        </ListBox.DataContext>
-
-                    </ListBox>
                 </Grid>
             </TabItem>
         </TabControl>

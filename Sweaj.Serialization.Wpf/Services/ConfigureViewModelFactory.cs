@@ -23,21 +23,28 @@ namespace Sweaj.Serialization.Wpf.Services
             client.BaseAddress = uriBuilder.Uri;
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-            var response = await client.GetAsync(path, HttpCompletionOption.ResponseContentRead);
-            if (response.IsSuccessStatusCode)
+            HttpResponseMessage response;
+            try
             {
-                configureViewModel.IsSuccessful = true;
-                configureViewModel.Status = $"Successfully reached {uriBuilder.Uri}.";
-            }
-            else
-            {
-                configureViewModel.IsSuccessful = false;
-                configureViewModel.Status = $"Unable to reach {uriBuilder.Uri}. Please check the values, and the status of the webserver.";
-                configureViewModel.ErrorInfo = response.ReasonPhrase;
-            }
+                response = await client.GetAsync(path, HttpCompletionOption.ResponseContentRead);
+                if (response.IsSuccessStatusCode)
+                {
+                    configureViewModel.IsSuccessful = true;
+                    configureViewModel.Status = $"Successfully reached {uriBuilder.Uri}.";
+                }
+                else
+                {
+                    configureViewModel.IsSuccessful = false;
+                    configureViewModel.Status = $"Unable to reach {uriBuilder.Uri}. Please check the values, and the status of the webserver.";
+                    configureViewModel.ErrorInfo = response.ReasonPhrase;
+                }
 
-            configureViewModel.HttpClient = client;
+                configureViewModel.HttpClient = client;
+            }
+            catch (Exception e)
+            {
+                configureViewModel.ErrorInfo += $"\n{e.Message}";
+            }
 
             return configureViewModel;
         }
