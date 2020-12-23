@@ -11,6 +11,7 @@ using Microsoft.Extensions.Logging;
 using Sweaj.Serialization.Data;
 using Sweaj.Serialization.Data.Services;
 using Sweaj.Serialization.Web.Models;
+using Sweaj.Serialization.Web.Services;
 
 namespace Sweaj.Serialization.Web.Controllers
 {
@@ -19,12 +20,15 @@ namespace Sweaj.Serialization.Web.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly VideoContext context;
         private readonly HttpClient httpClient;
+        private readonly StringContentConstructor stringContentConstructor;
 
-        public HomeController(ILogger<HomeController> logger, VideoContext demoContext, HttpClient httpClient)
+        public HomeController(ILogger<HomeController> logger, VideoContext demoContext, 
+            HttpClient httpClient, StringContentConstructor stringContentConstructor)
         {
             _logger = logger;
             this.context = demoContext;
             this.httpClient = httpClient;
+            this.stringContentConstructor = stringContentConstructor;
         }
 
         [HttpGet]
@@ -57,8 +61,8 @@ namespace Sweaj.Serialization.Web.Controllers
         public async Task<IActionResult> RandomVideo(int? numberOfVideos)
         {
             var videos = RandomVideoGenerator.CreateRandomVideo(numberOfVideos.HasValue ? numberOfVideos.Value : 1);
-
-            var response = await httpClient.PostAsJsonAsync("upload", videos);
+            var stringContent = stringContentConstructor.ToStringContent(videos);
+            var response = await httpClient.PostAsync("upload", stringContent);
 
             if (response.IsSuccessStatusCode)
                 return RedirectToAction(nameof(Video), new { id = videos[0].Id });

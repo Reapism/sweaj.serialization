@@ -1,17 +1,14 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Threading.Tasks;
+using System.Text.Json;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Sweaj.Serialization.Data;
-using Sweaj.Serialization.Web.Controllers;
+using Sweaj.Serialization.Web.Services;
 
 namespace Sweaj.Serialization.Web
 {
@@ -37,6 +34,8 @@ namespace Sweaj.Serialization.Web
             httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
             services.AddSingleton(httpClient);
+            services.AddScoped(e => new JsonSerializerOptions() { WriteIndented = true });
+            services.AddScoped<StringContentConstructor>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

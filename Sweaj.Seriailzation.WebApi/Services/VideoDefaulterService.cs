@@ -16,13 +16,12 @@ namespace Sweaj.Seriailzation.WebApi.Services
             {
                 if (e.Id == Guid.Empty)
                     e.Id = Guid.NewGuid();
-                if (e.ViewCount != 0)
-                    e.ViewCount = 0;
+                if (string.IsNullOrEmpty(e.Language))
+                    e.Language = "English";
+                if (string.IsNullOrEmpty(e.ImageSeed))
+                    e.ImageSeed = Random.Next().ToString();
 
-                e.Language = "English";
-                e.PublishDate = DateTime.Now;
                 e.UploadDate = DateTime.Now;
-                e.ImageSeed = Random.Next().ToString();
             });
         }
     }
