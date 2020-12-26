@@ -52,16 +52,15 @@
         @if (Model.ShortDescription.Length > 150)
         {
             <textarea class="form-control" rows="5" readonly="readonly">@(Model.ShortDescription.Substring(0, 150))... @Environment.NewLine
-            Tags: @Model.Tags
+Tags: @Model.Tags
         </textarea>
         }
         else
         {
-            <textarea class="form-control" rows="5" readonly="readonly">@Model.ShortDescription.Length @Environment.NewLine
-            Tags: @Model.Tags
+            <textarea class="form-control" rows="5" readonly="readonly">@Model.ShortDescription @Environment.NewLine
+Tags: @Model.Tags
         </textarea>
         }
-        <br />
     </div>
 
     <div>

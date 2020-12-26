@@ -17,22 +17,24 @@ namespace Sweaj.Seriailzation.WebApi.Controllers
     {
 
         private readonly VideoContext context;
-        private readonly VideoDefaulterService videoDefaulter;
+        private readonly VideoDefaulterService videoDefaulterService;
 
         public UploadController(VideoContext context, VideoDefaulterService videoDefaulter)
         {
             this.context = context;
-            this.videoDefaulter = videoDefaulter;
+            this.videoDefaulterService = videoDefaulter;
         }
 
         [HttpGet]
         public async Task<ActionResult<VideoMetadata>> Get(Guid id)
         {
+            // Get first model that fits the criteria or null asynchronously.
             var model = await context.VideoMetadatas.FirstOrDefaultAsync(e => e.Id == id);
             if (model is null)
             {
                 return null;
             }
+
             return model;
         }
 
@@ -40,13 +42,15 @@ namespace Sweaj.Seriailzation.WebApi.Controllers
         [HttpPost]
         public async Task<ActionResult> Post(VideoMetadata[] models)
         {
+            // At this point, the models parameter was deserialized from UploadVideoDetails model (class), to the VideoMetadata data model (class).
+            // This is the ASP.NET Web API framework automatically doing the deserialization for us and checking parameters, and method names.
             if (models is null || models.Length == 0)
             {
                 return NoContent();
             }
 
             var modelsList = models.ToList();
-            videoDefaulter.ApplyVideoDefaults(modelsList);
+            videoDefaulterService.ApplyVideoDefaults(modelsList);
 
             await context.VideoMetadatas.AddRangeAsync(modelsList);
             await context.SaveChangesAsync();

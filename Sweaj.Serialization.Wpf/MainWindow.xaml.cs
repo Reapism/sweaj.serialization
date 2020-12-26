@@ -50,7 +50,7 @@ namespace Sweaj.Serialization.Wpf
             File.WriteAllText(saveFileDialog.FileName, json);
         }
 
-        private async void OpenVideoButton_Click(object sender, RoutedEventArgs e)
+        private void OpenVideoButton_Click(object sender, RoutedEventArgs e)
         {
             var openFileDialog = new OpenFileDialog()
             {
@@ -66,7 +66,7 @@ namespace Sweaj.Serialization.Wpf
             }
 
             var json = File.ReadAllText(openFileDialog.FileName);
-            var model = JsonSerializer.Deserialize<UploadVideoMetadata>(json);
+            var model = JsonSerializer.Deserialize<UploadVideoDetails>(json);
 
             ApplyUiValuesFromModel(model);
         }
@@ -78,7 +78,7 @@ namespace Sweaj.Serialization.Wpf
 
         private async void UploadVideoButton_Click(object sender, RoutedEventArgs e)
         {
-            var model = ToModel();
+            var model = GetUploadVideoMetadataModelFromUi();
             var response = await configureViewModel.HttpClient.PostAsJsonAsync("upload", new[] { model });
 
             if (response.IsSuccessStatusCode)
@@ -111,15 +111,15 @@ namespace Sweaj.Serialization.Wpf
 
         private string ToJson()
         {
-            var uploadVideo = ToModel();
+            var uploadVideo = GetUploadVideoMetadataModelFromUi();
             var json = JsonSerializer.Serialize(uploadVideo, new JsonSerializerOptions() { WriteIndented = true });
 
             return json;
         }
 
-        private UploadVideoMetadata ToModel()
+        private UploadVideoDetails GetUploadVideoMetadataModelFromUi()
         {
-            var uploadVideo = new UploadVideoMetadata
+            var uploadVideo = new UploadVideoDetails
             {
                 AllowComments = AllowCommentsCheckBox.IsChecked.Value,
                 AllowEmbedding = AllowEmbeddingCheckBox.IsChecked.Value,
@@ -138,7 +138,7 @@ namespace Sweaj.Serialization.Wpf
             return uploadVideo;
         }
 
-        private void ApplyUiValuesFromModel(UploadVideoMetadata model)
+        private void ApplyUiValuesFromModel(UploadVideoDetails model)
         {
             AllowCommentsCheckBox.IsChecked = model.AllowComments;
             AllowEmbeddingCheckBox.IsChecked = model.AllowEmbedding;

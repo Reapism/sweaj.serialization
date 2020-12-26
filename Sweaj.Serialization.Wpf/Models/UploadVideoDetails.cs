@@ -3,7 +3,12 @@ using System.Text.Json.Serialization;
 
 namespace Sweaj.Serialization.Wpf.Models
 {
-    public class UploadVideoMetadata
+    /// <summary>
+    /// Represents upload video data from the Upload form.
+    /// 
+    /// This is the Client Model, not the data model.
+    /// </summary>
+    public class UploadVideoDetails
     {
         [JsonPropertyName("title")]
         public string Title { get; set; }

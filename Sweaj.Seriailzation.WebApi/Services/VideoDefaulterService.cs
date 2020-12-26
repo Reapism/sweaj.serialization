@@ -12,12 +12,15 @@ namespace Sweaj.Seriailzation.WebApi.Services
 
         public void ApplyVideoDefaults(List<VideoMetadata> models)
         {
+            // For every model, apply defaults to properties conditionally.
             models.ForEach(e =>
             {
                 if (e.Id == Guid.Empty)
                     e.Id = Guid.NewGuid();
+
                 if (string.IsNullOrEmpty(e.Language))
                     e.Language = "English";
+
                 if (string.IsNullOrEmpty(e.ImageSeed))
                     e.ImageSeed = Random.Next().ToString();
 
