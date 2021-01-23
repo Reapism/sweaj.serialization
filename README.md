@@ -1,6 +1,6 @@
 # sweaj.serialization
 
-A demonstration of fundamental process in computing **serialization**. This was made for demonstrating the power
+A demonstration of fundamental process in computing, **serialization**. This was made for demonstrating the power
 of serialization and its uses in everything computing. All software, networking, and everything else computing! This project was born from
 making this [youtube video](https://www.youtube.com/watch?v=xjS06yX5mJw).
 
