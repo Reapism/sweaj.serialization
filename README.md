@@ -29,4 +29,5 @@ data access layer (DAL).
 ## Web application (Sweaj.Serialization.WebApp)
 This is one of the most prominent application technology choices for powering a software product.
 
-*In our case, the web application is another client application hosted in this pretend companies intranet (internal to the company managers).*
+*In our case, the web application is another client application hosted in this pretend companies intranet (internal to the company managers) where
+they manage the videos that are uploaded from the Client (Sweaj.Serialization.Wpf).*
