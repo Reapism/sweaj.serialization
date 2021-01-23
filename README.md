@@ -1,7 +1,8 @@
 # sweaj.serialization
 
 A demonstration of fundamental process in computing **serialization**. This was made for demonstrating the power
-of serialization and its uses in everything computing. All software, networking, and everything else computing!
+of serialization and its uses in everything computing. All software, networking, and everything else computing! This project was born from
+making this [youtube video](https://www.youtube.com/watch?v=xjS06yX5mJw).
 
 This repository simulates a .NET Core WPF client application, a ASP.NET Core MVC web-application, and an underlying ASP.NET Core WebAPI to demonstrate a simple application infrastructure common in many companies, reduced to the simplist parts. The project features two different projects, in two technologies, that can CRUD an external API to them using serialization. This is 
 
